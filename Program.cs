@@ -68,6 +68,17 @@ namespace UserManagement.UI
                         Console.WriteLine("==========================");
                         Console.Write("ID do usuário: ");
                         var idToUpdate = int.Parse(Console.ReadLine());
+
+                        var userRes = userService.GetUserById(idToUpdate);
+
+                        if (userRes == null)
+                        {
+                            Console.WriteLine("Usuário de id: " + idToUpdate + " não encontrado");
+                            Console.WriteLine("Pressione qualquer tecla para retornar ao menu...");
+                            Console.ReadKey();
+                            break;
+                        }
+
                         Console.Write("Novo Nome: ");
                         var newName = Console.ReadLine();
                         Console.Write("Novo Email: ");
@@ -96,10 +107,22 @@ namespace UserManagement.UI
                         Console.Write("ID do usuário: ");
                         var idToDelete = int.Parse(Console.ReadLine());
 
+                        var userResponse = userService.GetUserById(idToDelete);
+
+                        if (userResponse == null)
+                        {
+                            Console.WriteLine("Usuário de id: " + idToDelete + " não encontrado");
+                            Console.WriteLine("Pressione qualquer tecla para retornar ao menu...");
+                            Console.ReadKey();
+                            break;
+                        }
+
+
                         Console.Write("Tem certeza que deseja excluir este usuário? (s/n): ");
                         var confirmDelete = Console.ReadLine();
                         if (confirmDelete?.ToLower() == "s")
                         {
+
                             userService.DeleteUser(idToDelete);
                             Console.WriteLine("\nUsuário excluído com sucesso!");
                         }
